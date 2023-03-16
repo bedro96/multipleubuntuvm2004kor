@@ -8,17 +8,20 @@
   
   tasks:
   - name: Run the equivalent of "apt-get update" as a separate step
+    tags: ubuntu
     ansible.builtin.apt:
       update_cache: yes
       cache_valid_time: 3600
     when: ansible_distribution == "Ubuntu"
 
   - name: Upgrade the OS (ansible.builtin.apt-get dist-upgrade)
+    tags: ubuntu
     ansible.builtin.apt:
       upgrade: dist
     when: ansible_distribution == "Ubuntu"
 
   - name: Install the packages "cowsay, nmon, tmux, rsync, zip and etc"
+    tags: ubuntu
     ansible.builtin.apt:
       name: 
         - cowsay
@@ -30,3 +33,13 @@
         - apache2
       state: latest #abset to remove
     when: ansible_distribution == "Ubuntu"
+  
+  - name: Copy default html file for site
+    tags: apache, apache2, httpd
+    copy:
+      src: default_site.html
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 0644
+      
