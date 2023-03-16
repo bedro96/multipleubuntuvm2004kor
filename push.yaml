@@ -10,10 +10,12 @@
     ansible.builtin.apt:
       update_cache: yes
       cache_valid_time: 3600
+    when: ansible_distribution == "Ubuntu"
 
   - name: Upgrade the OS (ansible.builtin.apt-get dist-upgrade)
     ansible.builtin.apt:
       upgrade: dist
+    when: ansible_distribution == "Ubuntu"
 
   - name: Install the packages "cowsay, nmon, tmux, rsync, zip and etc"
     ansible.builtin.apt:
@@ -25,3 +27,5 @@
         - zip
         - fortune
         - apache2
+      state: latest #abset to remove
+    when: ansible_distribution == "Ubuntu"
