@@ -1,4 +1,5 @@
 ---
+
 - name: Update all servers
   hosts: servers
   become: yes
