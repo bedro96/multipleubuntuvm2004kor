@@ -1,0 +1,26 @@
+---
+- name: Update all servers
+  hosts: servers
+  become: yes
+  become_exe: "sudo su"
+  become_method: su
+  
+  tasks:
+  - name: Run the equivalent of "apt-get update" as a separate step
+    ansible.builtin.apt:
+      update_cache: yes
+      cache_valid_time: 3600
+
+  - name: Upgrade the OS (ansible.builtin.apt-get dist-upgrade)
+    ansible.builtin.apt:
+      upgrade: dist
+
+  - name: Install the packages "cowsay, nmon, tmux, rsync, zip and etc"
+    ansible.builtin.apt:
+      name: 
+        - cowsay
+        - nmon
+        - tmux
+        - rsync
+        - zip
+        - fortune
