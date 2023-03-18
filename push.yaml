@@ -46,4 +46,6 @@
   - name: install unzip
     package:
       name: unzip
-      
+  
+  - name: Install terraform
+    ansible.builtin.script: install_terraform.sh
